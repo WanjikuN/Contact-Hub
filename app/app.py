@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from models import db, User, Contact, Organization
 from flask_migrate import Migrate
-
 app = Flask(__name__)
 
 
@@ -98,6 +97,7 @@ def delete_user(user_id):
 
 
 if __name__ == "__main__":
+    db.create_all()
     app.run(port=5555, debug=True)
 
 
