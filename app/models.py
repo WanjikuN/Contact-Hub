@@ -70,5 +70,5 @@ class Contact(db.Model, SerializerMixin):
     # Columns
     id=db.Column(db.Integer, primary_key=True)
     profile_notes = db.Column(db.String)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    organization_id = db.Column(db.Integer, db.ForeignKey("organization.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    organization_id = db.Column(db.Integer, db.ForeignKey("organizations.id"))
