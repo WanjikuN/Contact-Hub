@@ -1,11 +1,12 @@
 from flask import Flask, request, jsonify
 from models import db, User, Contact, Organization
-
+from flask_migrate import Migrate
 app = Flask(__name__)
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///contacthub.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+migrate = Migrate(app, db)
 db.init_app(app)
 
 with app.app_context():
@@ -96,6 +97,7 @@ def delete_user(user_id):
 
 
 if __name__ == "__main__":
+    db.create_all()
     app.run(port=5555, debug=True)
 
 
