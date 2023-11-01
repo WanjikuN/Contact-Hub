@@ -45,14 +45,14 @@
 }
 
 .navbar-brand .bold-brand {
-  font-weight: bold; /* Apply bold font to Navbar Brand */
+  font-weight: bold;
   font-family: "Arial", sans-serif;
   font-size: 25px;
 }
 
 .custom-navbar,
 .custom-navbar .nav-link {
-  font-family: "Arial", sans-serif; /* Change the font family */
+  font-family: "Arial", sans-serif;
   font-size: 18px;
   color: rgb(14, 30, 54);
 }
