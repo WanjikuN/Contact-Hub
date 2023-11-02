@@ -1,16 +1,39 @@
 import {useState, useEffect} from "react"
 import Contact from "./Contact"
+import Filter from "./Filter"
 export default function Contacts(){
     const [contacts, setContacts] = useState([])
+    const [cname, setCname] = useState("")
+    const [selectedGender, setSelectedGender] = useState("All")
+
+    function handleName(e){
+        e.preventDefault()
+        setCname(e.target.value);
+
+    }
+
+    function handleGender(e){
+        e.preventDefault()
+        setSelectedGender(e.target.value)
+    }
+    const contactsDisplay = contacts.filter(contact=>{
+        if(contact === "") return true;
+        return contact.user.username.toLowerCase().includes(cname.toLowerCase())
+    })
+    const sortedGender = selectedGender ==="All"? contactsDisplay: contactsDisplay.filter(s=>s.user.gender.toLowerCase() === selectedGender.toLowerCase());
+
     useEffect(()=>{
         fetch('/contacts')
         .then(res => res.json())
         .then(data => setContacts(data))
     },[])
+
     return (
+        <>
+        <Filter  handleName={handleName} handleGender={handleGender} selectedGender={selectedGender} showGenderFilter={true}/>
+
         <div id ='listy'>
-        
-        {contacts.map(contact => {
+        {sortedGender.map(contact => {
             return( <Contact key={contact.id} id={contact.id} 
                 username={contact.user.username} 
                 email={contact.user.email} 
@@ -22,5 +45,6 @@ export default function Contacts(){
                 />
         )})}
         </div>
+        </>
     )
 }

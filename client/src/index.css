@@ -26,7 +26,7 @@ code {
 #listy{
   /* border: 1px solid black; */
   padding: 12px;
-  margin:30px;
+  /* margin:30px; */
   height: 88vh;
   display: flex;
   justify-content: center;
@@ -62,4 +62,25 @@ code {
   margin-top: 4px;
   border-bottom: 1px dashed black ;
   border-radius: 10px;
+}
+.filter{
+  padding: 5px;
+  margin: 10px;
+  border-radius: 4px;
+  width: 30%;
+  
+}
+
+#filter{
+margin: 10px 10px 0px 10px;
+
+display: flex;
+justify-content: space-between;
+
+}
+#sort{
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+
 }
