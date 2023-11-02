@@ -1,13 +1,135 @@
 body {
   margin: 0;
+  
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+}
+*{
+  font-size: 16px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.avatar{
+  height: 60px;
+}
+.avatar_contacts{
+  height: 15px;
+}
+
+#listy{
+  /* border: 1px solid black; */
+  padding: 12px;
+  /* margin:30px; */
+  height: 88vh;
+  display: flex;
+  justify-content: center;
+  overflow: scroll;
+  flex-wrap: wrap;
+  
+}
+/* Hide scroll bar */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+#contact{
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid rgba(125, 106, 221, 0.413);
+  width: 25%;
+  border-radius: 4px;
+  line-height: 1.0;
+
+}
+
+#contact:hover{
+  border: 3px solid rgba(125, 106, 221, 0.413);
+  
+}
+.details{
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.note{
+  margin-top: 4px;
+  border-bottom: 1px dashed black ;
+  border-radius: 10px;
+}
+.filter{
+  padding: 5px;
+  margin: 10px;
+  border-radius: 4px;
+  width: 30%;
+  
+}
+
+#filter{
+margin: 10px 10px 0px 10px;
+
+display: flex;
+justify-content: space-between;
+
+}
+#sort{
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+
+}
+#top_org{
+  background-color:  rgba(175, 106, 221, 0.071);
+  border-radius: 0px 10px 10px 10px;
+  padding: 20px;
+  margin: 0px 50px 50px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  width:35%;
+}
+#img_name{
+  display: flex;
+  align-items: flex-end;
+
+}
+#email_ad{
+  display: flex;
+  flex-direction: column;
+  
+}
+#org_order{
+  display: flex;
+  padding: 20px;
+  height:94vh;
+}
+#user{
+
+  height:89vh;
+  overflow: scroll;
+  width:55%;
+
+}
+#user_specific{
+  border: 1px solid rgba(125, 106, 221, 0.413);
+  border-radius: 10px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  
+}
+#note{
+  background-color:  rgba(175, 106, 221, 0.071);
+  width: 100%;
+  border-radius: 10px;
 }

@@ -61,6 +61,13 @@ def get_organizations():
     serialized_organizations = [org.to_dict(rules=('contact.organization',)) for org in organizations]
     return jsonify(serialized_organizations), 200
 
+# Get a specific organization by its id
+@app.route('/organizations/<int:id>', methods=['GET'])
+def get_organizations_by_id(id):
+    organizations = Organization.query.get(id).to_dict()
+    
+    return jsonify(organizations), 200
+
 # Create a new contact
 @app.route('/contact', methods=['POST'])
 def create_contact():
