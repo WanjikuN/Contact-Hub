@@ -1,10 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
-
+import logo from "./logo.svg";
+import React from "react";
+import { Routes, Route, Link } from 'react-router-dom'; 
+import "./App.css";
+import NavbarComp from "./Components/Navbar";
+import Contacts from "./Components/Contacts";
+import Organizations from "./Components/Organizations";
+import OrganizationDetails from "./Components/OrganizationDetails";
 function App() {
   return (
     <div className="App">
-        <h2>Contact Hub</h2>
+      <NavbarComp />
+      <Routes>
+          <Route  path='/contacts' element={<Contacts />} />
+          <Route  path='/organizations' element={<Organizations />} />
+          <Route path="/organizations/:id" element={<OrganizationDetails />} />
+      </Routes>
+      
     </div>
   );
 }

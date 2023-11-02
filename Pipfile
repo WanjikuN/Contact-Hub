@@ -10,6 +10,8 @@ flask-migrate = "*"
 flask-restful = "*"
 flask-sqlalchemy = "*"
 sqlalchemy-serializer = "*"
+honcho = "*"
+gunicorn = "*"
 
 [dev-packages]
 
