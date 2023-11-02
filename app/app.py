@@ -38,6 +38,15 @@ def get_users():
     serialized_users = [user.to_dict(rules=('-contact.user',)) for user in users]
     return jsonify(serialized_users), 200
 
+# Get a specific user
+# Get all users
+@app.route('/users/<int:id>', methods=['GET'])
+def get_users_by_id(id):
+    user = User.query.get(id).to_dict()
+    
+    return jsonify(user), 200
+
+
 
 # Create a new organization
 @app.route('/organization', methods=['POST'])
@@ -90,6 +99,13 @@ def get_contacts():
     serialized_contacts = [contact.to_dict(rules=('-user.contact', '-organization.contact',)) for contact in contacts]
     return jsonify(serialized_contacts), 200
 
+# Get specific contact
+@app.route('/contacts/<int:id>', methods=['GET'])
+def get_contacts_by_id(id):
+    contact = Contact.query.get(id).to_dict()
+    
+    return jsonify(contact), 200
+
 #Delete user
 @app.route('/user/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
@@ -101,8 +117,74 @@ def delete_user(user_id):
     else:
         return jsonify({'message': 'User not found'}), 404
 
+# Update a user by ID
+@app.route('/user/<int:user_id>', methods=['PATCH'])
+def update_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
 
+    data = request.json
+    if 'username' in data:
+        user.username = data['username']
+    if 'gender' in data:
+        user.gender = data['gender']
+    if 'phone_number' in data:
+        user.phone_number = data['phone_number']
+    if 'email' in data:
+        user.email = data['email']
+    if 'password' in data:
+        user.password = data['password']
+    if 'address' in data:
+        user.address = data['address']
 
+    db.session.commit()
+
+    return jsonify({'message': 'User updated successfully'}), 200
+
+# Update a contact by ID
+@app.route('/contact/<int:contact_id>', methods=['PATCH'])
+def update_contact(contact_id):
+    contact = Contact.query.get(contact_id)
+    if not contact:
+        return jsonify({'message': 'Contact not found'}), 404
+
+    data = request.json
+    if 'profile_notes' in data:
+        contact.profile_notes = data['profile_notes']
+    if 'user' in data:
+        user_data = data['user']
+        if 'phone_number' in user_data:
+            contact.user.phone_number = user_data['phone_number']
+        if 'email' in user_data:
+            contact.user.email = user_data['email']
+        if 'address' in user_data:
+            contact.user.address = user_data['address']
+
+    db.session.commit()
+
+    
+    return jsonify(contact.to_dict()), 200
+
+    # Update the contact deletion route to delete the associated user
+@app.route('/contacts/<int:id>', methods=['DELETE'])
+def delete_contact(id):
+    contact = Contact.query.get(id)
+    if contact:
+        user_id = contact.user_id
+
+        db.session.delete(contact)
+
+        # Delete the associated user
+        user = User.query.get(user_id)
+        if user:
+            db.session.delete(user)
+
+        db.session.commit()
+
+        return jsonify({'message': 'Contact and associated user deleted successfully'}), 200
+    else:
+        return jsonify({'message': 'Contact not found'}), 404
 if __name__ == "__main__":
     db.create_all()
     app.run(port=5555, debug=True)
