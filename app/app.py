@@ -2,18 +2,20 @@ from flask import Flask, request, jsonify, session
 from models import db, User, Contact, Organization
 from flask_migrate import Migrate
 from flask_cors import CORS
-from flask_bcrypt import Bcrypt
+import os
 
 
 app = Flask(__name__)
 CORS(app)
 
 app.secret_key = "qwertyyuiop"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///contacthub.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
+    app.instance_path, "contacthub.db"
+)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 migrate = Migrate(app, db)
 
-Bcrypt = Bcrypt(app)
+# Bcrypt = Bcrypt(app)
 db.init_app(app)
 
 
@@ -22,10 +24,19 @@ def signup():
     name = request.json.get("name")
     email = request.json.get("email")
     password = request.json.get("password")
+    gender = request.json.get("gender")
+    phone_number = request.json.get("phone_number")
+    address = request.json.get("address")
 
     if name and email and password:
-        new_user = User(username=name, email=email)
-        new_user.password_hash = password
+        new_user = User(
+            username=name,
+            email=email,
+            gender=gender,
+            phone_number=phone_number,
+            address=address,
+        )
+        new_user.set_password(password)
 
         db.session.add(new_user)
         db.session.commit()
@@ -46,7 +57,7 @@ def login():
 
     if email and password:
         user = User.query.filter(User.email == email).first()
-        if user and user.authenticate(password):
+        if user and user.check_password(password):
             session["user_id"] = user.id
             return jsonify(user.to_dict()), 200
     return jsonify({"error": "Email or password is incorrect"}), 401

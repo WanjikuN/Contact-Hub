@@ -10,6 +10,9 @@ function LoginSignup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [gender, setGender] = useState("");
+  const [phone_number, setPhone_number] = useState("");
+  const [address, setAddress] = useState("");
 
   const Signup = async () => {
     try {
@@ -18,11 +21,27 @@ function LoginSignup() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({
+          username: name,
+          email,
+          password,
+          gender,
+          phone_number,
+          address,
+        }),
+        mode: "cors", // Ensure CORS mode
+        credentials: "include",
       });
 
       //handle error message in signyp
       const data = await response.json();
+      if (response.ok) {
+        // Signup successful, handle accordingly
+        console.log("Signup successful:", data);
+      } else {
+        // Signup failed, handle error message
+        console.error("Signup error:", data.error);
+      }
     } catch (error) {
       console.error("Error during signup:", error);
     }
@@ -39,8 +58,15 @@ function LoginSignup() {
       });
 
       const data = await response.json();
+      if (response.ok) {
+        // Signup successful, handle accordingly
+        console.log("login successful:", data);
+      } else {
+        // Signup failed, handle error message
+        console.error("Login error:", data.error);
+      }
     } catch (error) {
-      console.error("Error during login:", error);
+      console.error("Error during login", error);
     }
   };
 
@@ -64,6 +90,34 @@ function LoginSignup() {
             />
           </div>
         )}
+
+        <div className="input">
+          <img src={user_icon} alt="" />
+          <input
+            type="text"
+            placeholder="Gender"
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+          />
+        </div>
+        <div className="input">
+          <img src={user_icon} alt="" />
+          <input
+            type="number"
+            placeholder="Phone Number"
+            value={phone_number}
+            onChange={(e) => setPhone_number(e.target.value)}
+          />
+        </div>
+        <div className="input">
+          <img src={user_icon} alt="" />
+          <input
+            type="text"
+            placeholder="Address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+        </div>
         <div className="input">
           <img src={email_icon} alt="" />
           <input

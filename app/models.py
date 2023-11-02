@@ -3,7 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.hybrid import hybrid_property
-from flask_bcrypt import Bcrypt
+
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 db = SQLAlchemy()
 
@@ -25,20 +27,11 @@ class User(db.Model, SerializerMixin):
     # relationship
     contact = db.relationship("Contact", backref="user")
 
-    # password hash
-    _password_hash = db.Column(db.String)
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
 
-    @hybrid_property
-    def password_hash(self):
-        raise AttributeError("password hash may not be viewed")
-
-    @password_hash.setter
-    def password_hash(self, password):
-        password_hash = bcrypt.generate_password_hash(password.encode("utf-8"))
-        self._password_hash = password_hash.decode("utf-8")
-
-    def authenticate(self, password):
-        return bcrypt.check_password_hash(self._password_hash, password.encode("utf-8"))
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
     # validation
     @validates("email")
