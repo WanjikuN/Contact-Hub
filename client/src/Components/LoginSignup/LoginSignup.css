@@ -1,0 +1,93 @@
+/* Style for the LoginSignup component */
+.login-signup-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 200px;
+  background-color: #f0f0f0;
+  padding: 30px;
+  border-radius: 8px;
+  align-items: center;
+  width: 600px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.text {
+  color: #3c009d;
+  font-size: 48px;
+  font-weight: 500;
+}
+
+.underline {
+  width: 61px;
+  height: 6px;
+  background: #3c009d;
+  border-radius: 9px;
+}
+
+.inputs {
+  margin-top: 55px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  max-width: auto;
+  width: 480px;
+  height: 80px;
+  background: #e7e6e6;
+  border-radius: 6px;
+}
+
+.login-signup-container .input img {
+  width: 20px;
+  height: 20px;
+  margin: 0px 30px;
+}
+
+.input input {
+  height: 50px;
+  width: 400px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: rgb(44, 42, 42);
+  font-size: 15px;
+}
+
+.submit-container {
+  display: flex;
+  gap: 30px;
+  margin: 60px auto;
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 59px;
+  color: #fff;
+  background: #4c00b4;
+  border-radius: 50px;
+  font-size: 19px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/*submit*/
+.gray {
+  background: #cccccc;
+  color: #5a5a5a;
+}
