@@ -5,14 +5,15 @@ import "./App.css";
 import NavbarComp from "./Components/Navbar";
 import Contacts from "./Components/Contacts";
 import Organizations from "./Components/Organizations";
+import OrganizationDetails from "./Components/OrganizationDetails";
 function App() {
   return (
     <div className="App">
       <NavbarComp />
       <Routes>
-          <Route exact path='/contacts' element={<Contacts />} />
-          <Route exact path='/organizations' element={<Organizations />} />
-
+          <Route  path='/contacts' element={<Contacts />} />
+          <Route  path='/organizations' element={<Organizations />} />
+          <Route path="/organizations/:id" element={<OrganizationDetails />} />
       </Routes>
       
     </div>

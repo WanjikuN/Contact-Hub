@@ -1,9 +1,11 @@
+import {Link} from "react-router-dom";
 import org from "../images/org.png";
 
-export default function Organization({name,email, address,notes}){
+export default function Organization({id,name,email, address,notes}){
     
     return (
-        <div id ="contact">
+        <Link id ="contact"  to={`/organizations/${id}`} style={{ textDecoration: 'none', color: 'black', height:'265px'}}>
+
         <div>
             <img className="avatar details" src={org} alt={name}/>
             <h5 className="details">{name}</h5>
@@ -16,6 +18,7 @@ export default function Organization({name,email, address,notes}){
             
             <p>{notes}</p>
         </div>
-        </div>
+        
+        </Link>
     )
 }
