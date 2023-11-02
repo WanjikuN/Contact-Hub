@@ -43,9 +43,16 @@ code {
   margin: 10px;
   padding: 10px;
   border: 1px solid rgba(125, 106, 221, 0.413);
-  width: 25%;
+  width: 27%;
   border-radius: 4px;
   line-height: 1.0;
+
+}
+#listy1{
+  
+  border: 1px solid rgba(125, 106, 221, 0.413);
+  width: 35%;
+  
 
 }
 
@@ -63,6 +70,7 @@ code {
   margin-top: 4px;
   border-bottom: 1px dashed black ;
   border-radius: 10px;
+  
 }
 .filter{
   padding: 5px;
@@ -95,6 +103,9 @@ justify-content: space-between;
   justify-content: center; 
   align-items: center;
   width:35%;
+}
+#form{
+  width: 55%;
 }
 #img_name{
   display: flex;
@@ -132,4 +143,69 @@ justify-content: space-between;
   background-color:  rgba(175, 106, 221, 0.071);
   width: 100%;
   border-radius: 10px;
+}
+
+/* Profile.css */
+
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.profile-content {
+  width: 55%;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.avatar_contacts {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.username-gender {
+  margin-left: 10px;
+}
+
+.contact-details {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.profile-note {
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 5px;
+}
+#cont{
+  /* border: 1px solid black; */
+  width: 75%;
+}
+#top_org input{
+  padding: 5px;
+  border-radius: 4px;
+  margin: 10px 0px 10px 10px;
+  width: 100%;
 }

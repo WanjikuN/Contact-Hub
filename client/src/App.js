@@ -6,14 +6,17 @@ import NavbarComp from "./Components/Navbar";
 import Contacts from "./Components/Contacts";
 import Organizations from "./Components/Organizations";
 import OrganizationDetails from "./Components/OrganizationDetails";
+import Profile from "./Components/Profile";
 function App() {
   return (
     <div className="App">
       <NavbarComp />
       <Routes>
           <Route  path='/contacts' element={<Contacts />} />
+          <Route  path='/contacts/:id' element={<Profile />} />
           <Route  path='/organizations' element={<Organizations />} />
           <Route path="/organizations/:id" element={<OrganizationDetails />} />
+          
       </Routes>
       
     </div>
