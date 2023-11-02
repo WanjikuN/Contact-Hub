@@ -2,14 +2,17 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
+from sqlalchemy.ext.hybrid import hybrid_property
+from flask_bcrypt import Bcrypt
 
 db = SQLAlchemy()
 
-class User(db.Model, SerializerMixin):
-    __tablename__ = 'users'
 
-    serialize_rules =('-contact.user',)
-    
+class User(db.Model, SerializerMixin):
+    __tablename__ = "users"
+
+    serialize_rules = ("-contact.user",)
+
     # Columns
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
@@ -18,57 +21,83 @@ class User(db.Model, SerializerMixin):
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String)
     address = db.Column(db.String)
-    
+
     # relationship
-    contact = db.relationship('Contact', backref='user')
-    
+    contact = db.relationship("Contact", backref="user")
+
+    # password hash
+    _password_hash = db.Column(db.String)
+
+    @hybrid_property
+    def password_hash(self):
+        raise AttributeError("password hash may not be viewed")
+
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(password.encode("utf-8"))
+        self._password_hash = password_hash.decode("utf-8")
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(self._password_hash, password.encode("utf-8"))
+
     # validation
-    @validates('email')
+    @validates("email")
     def validate_email(self, key, email):
-        assert '@' in email, 'Invalid email address'
+        assert "@" in email, "Invalid email address"
         return email
-    
-    @validates('phone_number')
+
+    @validates("phone_number")
     def validate_phone_number(self, key, phone_number):
-        assert phone_number.isdigit() and len(phone_number) >= 9, 'Invalid phone number'
+        assert phone_number.isdigit() and len(phone_number) >= 9, "Invalid phone number"
         return phone_number
 
-    @validates('password')
+    @validates("password")
     def validate_password(self, key, password):
         # At least 8 characters, one uppercase letter, one lowercase letter, and one digit
-        assert len(password) >= 8, 'Password must be at least 8 characters long'
-        assert any(char.isupper() for char in password), 'Password must contain at least one uppercase letter'
-        assert any(char.islower() for char in password), 'Password must contain at least one lowercase letter'
-        assert any(char.isdigit() for char in password), 'Password must contain at least one digit'
+        assert len(password) >= 8, "Password must be at least 8 characters long"
+        assert any(
+            char.isupper() for char in password
+        ), "Password must contain at least one uppercase letter"
+        assert any(
+            char.islower() for char in password
+        ), "Password must contain at least one lowercase letter"
+        assert any(
+            char.isdigit() for char in password
+        ), "Password must contain at least one digit"
         return password
-    
-class Organization(db.Model, SerializerMixin):
-    __tablename__ = 'organizations'
 
-    serialize_rules = ('-contact.organization',)
-    
+
+class Organization(db.Model, SerializerMixin):
+    __tablename__ = "organizations"
+
+    serialize_rules = ("-contact.organization",)
+
     # Columns
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)
     email = db.Column(db.String, unique=True)
     address = db.Column(db.String)
-    
-    # relationship
-    contact = db.relationship('Contact', backref='organization')
-    
-    # validation
-    @validates('email')
-    def validate_email(self, key, email):
-        assert '@' in email, 'Invalid email address'
-        return email
-    
-class Contact(db.Model, SerializerMixin):
-    __tablename__ = 'contacts'
 
-    serialize_rules = ('-user.contact','-organization.contact',)
-    
+    # relationship
+    contact = db.relationship("Contact", backref="organization")
+
+    # validation
+    @validates("email")
+    def validate_email(self, key, email):
+        assert "@" in email, "Invalid email address"
+        return email
+
+
+class Contact(db.Model, SerializerMixin):
+    __tablename__ = "contacts"
+
+    serialize_rules = (
+        "-user.contact",
+        "-organization.contact",
+    )
+
     # Columns
-    id=db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     profile_notes = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     organization_id = db.Column(db.Integer, db.ForeignKey("organizations.id"))
