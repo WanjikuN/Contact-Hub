@@ -31,7 +31,8 @@ with app.app_context():
         clear_tables()
 
         # Create sample users
-        for _ in range(20):  # Change 2 to the number of initial users you want
+        users = []
+        for _ in range(20):
             user = User(
                 username=fake.user_name(),
                 gender=fake.random_element(elements=('Male', 'Female')),
@@ -40,32 +41,44 @@ with app.app_context():
                 password=fake.password(),
                 address=fake.address()
             )
-            db.session.add(user)
+            users.append(user)
 
+        db.session.add_all(users)
         db.session.commit()
 
         # Create sample organizations
-        for _ in range(20):  # Change 2 to the number of initial organizations you want
+        organizations = []
+        for _ in range(5):  # Adjust the number of organizations as needed
             org = Organization(
                 name=fake.company(),
                 email=fake.company_email(),
                 address=fake.address()
             )
-            db.session.add(org)
+            organizations.append(org)
 
+        db.session.add_all(organizations)
+        db.session.commit()
+
+        # Assign users to organizations
+        for user in users:
+            user.organization_id = fake.random_element(elements=organizations).id
+
+        # Commit the changes to the database
         db.session.commit()
 
         # Create sample contacts
-        for _ in range(20):  # Change 2 to the number of initial contacts you want
+        contacts = []
+        for _ in range(20):
             contact = Contact(
                 profile_notes=fake.sentence(),
                 user_id=fake.random_element(elements=User.query.with_entities(User.id).all())[0],
                 organization_id=fake.random_element(elements=Organization.query.with_entities(Organization.id).all())[0]
             )
-            db.session.add(contact)
+            contacts.append(contact)
 
-        # Commit the changes to the database
+        db.session.add_all(contacts)
         db.session.commit()
+
 
     if __name__ == "__main__":
         seed_data()
