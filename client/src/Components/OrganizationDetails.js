@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import org from "../images/org.png";
 import avatar from "../images/avatar.png";
+import {Link} from "react-router-dom";
 
 export default function OrganizationDetails({ id, name, email, address, notes }) {
   const [details, setDetails] = useState([]);
@@ -65,7 +66,9 @@ export default function OrganizationDetails({ id, name, email, address, notes })
             return null;
           }
           return (
-            <div id="user_specific" key={contact.id}>
+            <Link id="user_specific" key={contact.id} to={`/contacts/${contact.id}`} style={{ textDecoration: 'none', color: 'black'}}>
+
+            
               <h5 id="img_name"><img className="avatar details" src={avatar} alt={contact.user.username} />
                 {contact.user.username}</h5>
               <p><b>email:</b> {contact.user.email}</p>
@@ -73,7 +76,8 @@ export default function OrganizationDetails({ id, name, email, address, notes })
                 <p style={{ color: "grey" }}>Note</p>
                 <p>{contact.profile_notes}</p>
               </div>
-            </div>
+            
+            </Link>
           );
         })}
       </div>

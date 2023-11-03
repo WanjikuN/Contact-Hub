@@ -139,6 +139,10 @@ justify-content: space-between;
   padding: 20px;
   
 }
+#user_specific:hover{
+  border: 3px solid rgba(125, 106, 221, 0.413);
+
+}
 #note{
   background-color:  rgba(175, 106, 221, 0.071);
   width: 100%;

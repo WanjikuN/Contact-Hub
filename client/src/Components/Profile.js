@@ -11,7 +11,8 @@ export default function Profile() {
     organization: {},
     profile_notes: '',
   });
-
+  const [error, setError] = useState(null);
+  const [message, setMessage]= useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedContact, setEditedContact] = useState({
     profile_notes: '',
@@ -68,10 +69,24 @@ export default function Profile() {
       .then((res) => res.json())
       .then((data) => {
         // Update the state with the new data
-        setContacts(data);
-        setIsEditing(false);
+            setContacts(data);
+            setIsEditing(false);
+            setError(null);
+            setMessage('Contact Updated successfully');
+        
+        setTimeout(() => {
+            setMessage(null)
+            }, 2000);
+        // setMessage(null)
       })
-      .catch((error) => console.error('Error updating contact:', error));
+      .catch((error) => {
+        console.error('Error updating contact:', error.message)
+        setError('Failed to update contact');
+
+        setTimeout(() => {
+            setError(null);
+        }, 3000);
+    });
   };
 
   const handleInputChange = (e) => {
@@ -84,7 +99,12 @@ export default function Profile() {
     })
       .then((res) => {
         if (res.ok) {
-            navigate('/contacts');
+            setMessage('Contact Deleted successfully')
+            setTimeout(() => {
+                setMessage(null);
+                navigate('/contacts');
+            }, 3000);
+            
           // Redirect to a different page or handle the deletion in your application logic
           console.log('Contact deleted successfully');
         } else {
@@ -101,6 +121,7 @@ export default function Profile() {
         </div>
         <div id="top_org" className="profile-content">
           <div className="user-info">
+
             <img className="avatar" src={avatar} alt={contacts.user.username} />
             <div className="username-gender">
               <h5>{contacts.user.username}</h5>
@@ -110,6 +131,9 @@ export default function Profile() {
           <div className="contact-details">
             {isEditing ? (
               <>
+                        {error && <div style={{ color: 'red', fontWeight: 'bold'  }}>{error}</div>}
+                        {message && <div style={{ color: 'green',fontWeight: 'bold' }}>{message}</div>}
+
                 <label>
                   Tell:
                   <input
@@ -140,6 +164,8 @@ export default function Profile() {
               </>
             ) : (
               <>
+                {message && <div style={{ color: 'green',fontWeight: 'bold' }}>{message}</div>}
+
                 <p>Tell: {contacts.user.phone_number}</p>
                 <p>Email: {contacts.user.email}</p>
                 <p>Address: {contacts.user.address}</p>
