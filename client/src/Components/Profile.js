@@ -185,9 +185,9 @@ export default function Profile() {
                     onChange={handleInputChange}
                   />
                   <br/>
-                  <button onClick={handleSaveEdit}>Save</button>
-                  <button onClick={handleCancelEdit}>Cancel</button>
-                  <button onClick={handleDelete}>Delete</button>
+                  <button className="btn1" onClick={handleSaveEdit}>Save</button>
+                  <button  className="btn1" onClick={handleCancelEdit}>Cancel</button>
+                  <button style={{margin:'10px', color:'Red',fontSize:'20px'}} onClick={handleDelete}>X</button>
                 </>
               ) : (
                 <>

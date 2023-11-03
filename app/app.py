@@ -27,6 +27,7 @@ def signup():
     gender = request.json.get("gender")
     phone_number = request.json.get("phone_number")
     address = request.json.get("address")
+    organization_id = request.json.get("organization_id")
 
     if name and email and password:
         new_user = User(
@@ -35,10 +36,15 @@ def signup():
             gender=gender,
             phone_number=phone_number,
             address=address,
+            
         )
         new_user.set_password(password)
-
+        new_contact = Contact(
+            user=new_user,  
+            organization_id=organization_id,
+        )
         db.session.add(new_user)
+        db.session.add(new_contact)
         db.session.commit()
         session["user_id"] = new_user.id
 

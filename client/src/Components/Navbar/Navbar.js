@@ -18,7 +18,7 @@ function NavbarComp() {
             <Nav.Link href="/organizations">Organisations</Nav.Link>
           </Nav>
           <Nav>
-            <Button variant="outline-dark" href="/logout">
+            <Button variant="outline-dark" href="/">
               Logout
             </Button>
             {/* <Nav.Link eventKey={2} href="#logout">
