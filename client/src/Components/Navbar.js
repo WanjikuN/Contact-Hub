@@ -15,7 +15,7 @@ function NavbarComp() {
           <Nav className="me-auto">
             <Nav.Link href="#/">Home</Nav.Link>
             <Nav.Link href="/contacts">Contacts</Nav.Link>
-            <Nav.Link href="/organisations">Organisations</Nav.Link>
+            <Nav.Link href="/organizations">Organisations</Nav.Link>
           </Nav>
           <Nav>
             <Button variant="outline-dark" href="/logout">

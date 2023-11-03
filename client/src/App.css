@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: rgba(175, 106, 221, 0.139);
 }
 
 .App-logo {
@@ -35,4 +36,24 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Navbar.css */
+.custom-navbar {
+  background-color: rgb(175, 106, 221);
+  border-radius: 10px;
+  /* Add other styles as needed */
+}
+
+.navbar-brand .bold-brand {
+  font-weight: bold;
+  font-family: "Arial", sans-serif;
+  font-size: 25px;
+}
+
+.custom-navbar,
+.custom-navbar .nav-link {
+  font-family: "Arial", sans-serif;
+  font-size: 18px;
+  color: rgb(14, 30, 54);
 }
