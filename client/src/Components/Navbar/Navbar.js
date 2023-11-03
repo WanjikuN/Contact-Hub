@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import "./Navbar.css";
 
 function NavbarComp() {
   return (
@@ -17,7 +18,7 @@ function NavbarComp() {
             <Nav.Link href="/organizations">Organisations</Nav.Link>
           </Nav>
           <Nav>
-            <Button variant="outline-dark" href="/logout">
+            <Button variant="outline-dark" href="/">
               Logout
             </Button>
             {/* <Nav.Link eventKey={2} href="#logout">
