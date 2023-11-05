@@ -4,14 +4,15 @@ import user_icon from "../Assets/person.png";
 import email_icon from "../Assets/email.png";
 import password_icon from "../Assets/password.png";
 import { useNavigate } from "react-router-dom";
+import orga from '../../images/org.png';
 export const checkLoginStatus = (setIsLoggedIn) => {
   const userIsLoggedIn =  true;
   setIsLoggedIn(userIsLoggedIn);
 };
 function LoginSignup() {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
-  //initialise variable with signup
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [action, setAction] = useState("Sign Up");
   const [name, setName] = useState("");
@@ -41,6 +42,15 @@ function LoginSignup() {
       return [];
     }
   };
+  const resetForm = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setGender("");
+    setPhone_number("");
+    setAddress("");
+    setSelectedOrganization("");
+  };
 
   useEffect(() => {
     const fetchAndSetOrganizations = async () => {
@@ -54,6 +64,18 @@ function LoginSignup() {
   
   const Signup = async () => {
     try {
+        // Check if an organization is selected
+      if (!selectedOrganization) {
+        setMessage("Please select an organization.");
+        setTimeout(()=>{
+          setMessage(null);
+          
+        }, 2000);
+        return;
+
+      }
+
+
       const response = await fetch("/signup", {
         method: "POST",
         headers: {
@@ -75,15 +97,19 @@ function LoginSignup() {
       //handle error message in signyp
       const data = await response.json();
       if (response.ok) {
-        setMessage("Signup successful! Redirecting to login...");
-        // Signup successful, handle accordingly
-        console.log("Signup successful:", data);
-        setTimeout(() => {
-          // navigate("/login"); // Replace with your login route
-        }, 2000);
+          setMessage("Signup successful! Redirecting to login...");
+          console.log("Signup successful:", data);
+          resetForm();
+        
+        Login();
+        
       } else {
-        // Signup failed, handle error message
+        setMessage(`Signup failed: ${data.error}`);
         console.error("Signup error:", data.error);
+        setTimeout(()=>{
+          setMessage(null);
+          setPassword("");
+        }, 2000);
       }
     } catch (error) {
       console.error("Error during signup:", error);
@@ -92,7 +118,7 @@ function LoginSignup() {
 
   const Login = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5555/login", {
+      const response = await fetch("/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -102,16 +128,21 @@ function LoginSignup() {
 
       const data = await response.json();
       if (response.ok) {
-        // Signup successful, handle accordingly
+        
         console.log("login successful:", data);
         setIsLoggedIn(true); 
         setMessage("Login successful! Redirecting...");
         setTimeout(() => {
-          navigate("/contacts"); // Replace with your login route
+          navigate("/contacts");
         }, 2000);
       } else {
-        // Signup failed, handle error message
+        setMessage(`Login failed: ${data.error}`);
         console.error("Login error:", data.error);
+        setTimeout(()=>{
+          setMessage(null);
+          setPassword("");
+        }, 2000);
+
       }
     } catch (error) {
       console.error("Error during login", error);
@@ -128,12 +159,13 @@ function LoginSignup() {
       <div className="inputs">
         {action === "Login" ? null : (
           <div className="input">
-            <img src={user_icon} alt="" />
+            <img src={user_icon} alt="" /><p className="req">*</p>
             <input
               type="text"
               placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              
             />
           </div>
         )}
@@ -141,25 +173,27 @@ function LoginSignup() {
         
         {action === "Login" ? null : (
           <>
-              <div className="input">
-    <label htmlFor="organization"> Organization: </label>
-    <select style={{width:'50%', height:'50%', backgroundColor:'lightgrey', borderRadius:'4px',margin:'12px'}}
-      id="organization"
-      onChange={(e) => setSelectedOrganization(e.target.value)}
-      value={selectedOrganization}
-    >
-      <option value="" disabled>
-        Select an organization
-      </option>
-      {/* Fetch and map organizations from the backend to options */}
-      {organizationOptions.map((org) => (
-        <option key={org.id} value={org.id}>
-          {org.name}
-        </option>
-      ))}
-    </select>
-  </div>
             <div className="input">
+                <label htmlFor="organization"> <img src={orga} alt="" /> </label><p className="req">*</p>
+                <select style={{width:'50%', height:'50%', backgroundColor:'lightgrey', borderRadius:'4px',margin:'12px'}}
+                    id="organization"
+                    onChange={(e) => setSelectedOrganization(e.target.value)}
+                    value={selectedOrganization}
+                    required
+                  >
+                    <option value="" disabled>
+                      Select an organization
+                    </option>
+                  
+                    {/* Fetch and map organizations from the backend to options */}
+                    {organizationOptions.map((org) => (
+                      <option key={org.id} value={org.id}>
+                        {org.name}
+                      </option>
+                    ))}
+                 </select>
+          </div>
+          <div className="input">
               <img src={user_icon} alt="" />
               <input
                 type="text"
@@ -167,67 +201,73 @@ function LoginSignup() {
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
               />
-            </div>
-            <div className="input">
-              <img src={user_icon} alt="" />
-              <input
+          </div>
+          <div className="input">
+            <img src={user_icon} alt="" /><p className="req">*</p>
+            <input
                 type="number"
-                placeholder="Phone Number"
+                placeholder="Phone Number: Digits(0-9,+)9"
                 value={phone_number}
                 onChange={(e) => setPhone_number(e.target.value)}
-              />
-            </div>
-            <div className="input">
-              <img src={user_icon} alt="" />
-              <input
+            />
+          </div>
+          <div className="input">
+            <img src={user_icon} alt="" />
+            <input
                 type="text"
                 placeholder="Address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-              />
-            </div>
+            />
+          </div>
           </>
         )}
-        <div className="input">
-          <img src={email_icon} alt="" />
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <div className="input">
+            <img src={email_icon} alt="" /><p className="req">*</p>
+            <input
+              type="email"
+              placeholder="Email: c@gmail.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="input">
+            <img src={password_icon} alt="" /><p className="req">*</p>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password: Characters(Aa1)8 "
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <span
+              className="password-toggle"
+              onClick={() => setShowPassword(!showPassword)}
+            ></span>
+            
+          </div>
         </div>
-        <div className="input">
-          <img src={password_icon} alt="" />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <div className="message"  style={{ color: 'green',fontWeight: 'bold' }}>{message}</div>
+
+        <div className="submit-container">
+          <div
+            className={action === "Login" ? "submit gray" : "submit"}
+            onClick={() => {
+              setAction("Sign Up");
+              Signup();
+            }}
+          >
+            Sign Up
+          </div>
+          <div
+            className={action === "Sign Up" ? "submit gray" : "submit"}
+            onClick={() => {
+              setAction("Login");
+              Login();
+            }}
+          >
+            Login
+          </div>
         </div>
-      </div>
-      <div className="submit-container">
-        <div
-          className={action === "Login" ? "submit gray" : "submit"}
-          onClick={() => {
-            setAction("Sign Up");
-            Signup();
-          }}
-        >
-          Sign Up
-        </div>
-        <div
-          className={action === "Sign Up" ? "submit gray" : "submit"}
-          onClick={() => {
-            setAction("Login");
-            Login();
-          }}
-        >
-          Login
-        </div>
-      </div>
-      <div className="message">{message}</div>
     </div>
   );
 }

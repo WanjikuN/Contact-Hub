@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 import Contacts from './Contacts';
 import { useNavigate } from 'react-router-dom';
 export default function Profile() {
-    const navigate = useNavigate();
-    const [contacts, setContacts] = useState({
+  const navigate = useNavigate();
+  const [contacts, setContacts] = useState({
     user: {},
     organization: {},
     profile_notes: '',
@@ -105,7 +105,6 @@ export default function Profile() {
                 navigate('/contacts');
             }, 3000);
             
-          // Redirect to a different page or handle the deletion in your application logic
           console.log('Contact deleted successfully');
         } else {
           console.error('Error deleting contact:', res.status);

@@ -231,3 +231,7 @@ justify-content: space-between;
   margin-right: 10px; /* Adjust margin as needed */
   cursor: pointer;
 }
+.logout{
+  font-size: 19px;
+  /* margin-top: 12px; */
+}

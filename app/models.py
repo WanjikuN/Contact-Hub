@@ -3,12 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.hybrid import hybrid_property
-
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
 db = SQLAlchemy()
-
 
 class User(db.Model, SerializerMixin):
     __tablename__ = "users"
