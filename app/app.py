@@ -18,7 +18,7 @@ migrate = Migrate(app, db)
 # Bcrypt = Bcrypt(app)
 db.init_app(app)
 
-
+# signup 
 @app.route("/signup", methods=["POST"])
 def signup():
     name = request.json.get("name")
@@ -54,7 +54,7 @@ def signup():
         422,
     )
 
-
+# login
 @app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
@@ -67,10 +67,6 @@ def login():
             session["user_id"] = user.id
             return jsonify(user.to_dict()), 200
     return jsonify({"error": "Email or password is incorrect"}), 401
-
-
-#####
-
 
 # creating new user
 @app.route("/user", methods=["POST"])
@@ -99,14 +95,11 @@ def get_users():
     return jsonify(serialized_users), 200
 
 # Get a specific user
-# Get all users
 @app.route('/users/<int:id>', methods=['GET'])
 def get_users_by_id(id):
     user = User.query.get(id).to_dict()
     
     return jsonify(user), 200
-
-
 
 # Create a new organization
 @app.route("/organization", methods=["POST"])
@@ -121,7 +114,6 @@ def create_organization():
 
     return jsonify({"message": "Organization created successfully"}), 201
 
-
 # Get all organizations
 @app.route("/organizations", methods=["GET"])
 def get_organizations():
@@ -131,7 +123,7 @@ def get_organizations():
     ]
     return jsonify(serialized_organizations), 200
 
-# Get a specific organization by its id
+# Get a specific organization id
 @app.route('/organizations/<int:id>', methods=['GET'])
 def get_organizations_by_id(id):
     organizations = Organization.query.get(id).to_dict()
@@ -152,7 +144,6 @@ def create_contact():
     db.session.commit()
 
     return jsonify({"message": "Contact created successfully"}), 201
-
 
 # Get all contacts
 @app.route("/contacts", methods=["GET"])
@@ -176,9 +167,6 @@ def get_contacts_by_id(id):
     
     return jsonify(contact), 200
 
-#Delete user
-@app.route('/user/<int:user_id>', methods=['DELETE'])
-
 # Delete user
 @app.route("/user/<int:user_id>", methods=["DELETE"])
 def delete_user(user_id):
@@ -196,7 +184,7 @@ def update_user(user_id):
     user = User.query.get(user_id)
     if not user:
         return jsonify({'message': 'User not found'}), 404
-        return jsonify({"message": "User not found"}), 404
+        
 
     data = request.json
     if 'username' in data:
@@ -240,7 +228,7 @@ def update_contact(contact_id):
     
     return jsonify(contact.to_dict()), 200
 
-    # Update the contact deletion route to delete the associated user
+# Update the contact deletion route to delete the associated user
 @app.route('/contacts/<int:id>', methods=['DELETE'])
 def delete_contact(id):
     contact = Contact.query.get(id)
@@ -259,5 +247,6 @@ def delete_contact(id):
         return jsonify({'message': 'Contact and associated user deleted successfully'}), 200
     else:
         return jsonify({'message': 'Contact not found'}), 404
+    
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
