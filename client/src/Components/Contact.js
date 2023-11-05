@@ -21,7 +21,6 @@ export default function Contact({id,username,email,gender,phone,address,org,note
         <div className="org_details">
             
             <p className="note">{notes}</p>
-            {/* <p>{org}</p> */}
         </div>
         </Link>
     )
