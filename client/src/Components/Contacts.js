@@ -32,7 +32,10 @@ export default function Contacts() {
     fetch('/contacts')
       .then((res) => res.json())
       .then((data) => setContacts(data))
-      .catch((error) => console.error('Error fetching contacts:', error));
+      .catch((error) => {
+        console.error('Error fetching contacts:', error)
+        
+      });
   }, []);
 
   return (

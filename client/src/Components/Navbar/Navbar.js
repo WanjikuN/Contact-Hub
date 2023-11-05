@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "./Navbar.css";
+import LogoutButton from "../Logout";
 
 function NavbarComp() {
   return (
@@ -18,8 +19,8 @@ function NavbarComp() {
             <Nav.Link href="/organizations">Organisations</Nav.Link>
           </Nav>
           <Nav>
-            <Button variant="outline-dark" href="/">
-              Logout
+            <Button style={{height:'50px'}} variant="outline-dark" href="/">
+              <LogoutButton/>
             </Button>
           </Nav>
         </Navbar.Collapse>
