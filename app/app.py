@@ -8,10 +8,12 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-app.secret_key = "qwertyyuiop"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
-    app.instance_path, "contacthub.db"
-)
+# app.secret_key = "qwertyyuiop"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
+#     app.instance_path, "contacthub.db"
+# )
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 migrate = Migrate(app, db)
 
