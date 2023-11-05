@@ -11,6 +11,7 @@ export const checkLoginStatus = (setIsLoggedIn) => {
 };
 function LoginSignup() {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [action, setAction] = useState("Sign Up");
@@ -63,6 +64,18 @@ function LoginSignup() {
   
   const Signup = async () => {
     try {
+        // Check if an organization is selected
+      if (!selectedOrganization) {
+        setMessage("Please select an organization.");
+        setTimeout(()=>{
+          setMessage(null);
+          
+        }, 2000);
+        return;
+
+      }
+
+
       const response = await fetch("/signup", {
         method: "POST",
         headers: {
@@ -95,6 +108,7 @@ function LoginSignup() {
         console.error("Signup error:", data.error);
         setTimeout(()=>{
           setMessage(null);
+          setPassword("");
         }, 2000);
       }
     } catch (error) {
@@ -122,8 +136,13 @@ function LoginSignup() {
           navigate("/contacts");
         }, 2000);
       } else {
-        
+        setMessage(`Login failed: ${data.error}`);
         console.error("Login error:", data.error);
+        setTimeout(()=>{
+          setMessage(null);
+          setPassword("");
+        }, 2000);
+
       }
     } catch (error) {
       console.error("Error during login", error);
@@ -162,6 +181,9 @@ function LoginSignup() {
                     value={selectedOrganization}
                     required
                   >
+                    <option value="" disabled>
+                      Select an organization
+                    </option>
                   
                     {/* Fetch and map organizations from the backend to options */}
                     {organizationOptions.map((org) => (
@@ -184,7 +206,7 @@ function LoginSignup() {
             <img src={user_icon} alt="" /><p className="req">*</p>
             <input
                 type="number"
-                placeholder="Phone Number"
+                placeholder="Phone Number: Digits(0-9,+)9"
                 value={phone_number}
                 onChange={(e) => setPhone_number(e.target.value)}
             />
@@ -204,7 +226,7 @@ function LoginSignup() {
             <img src={email_icon} alt="" /><p className="req">*</p>
             <input
               type="email"
-              placeholder="Email"
+              placeholder="Email: c@gmail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -212,11 +234,16 @@ function LoginSignup() {
           <div className="input">
             <img src={password_icon} alt="" /><p className="req">*</p>
             <input
-              type="password"
-              placeholder="Password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Password: Characters(Aa1)8 "
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <span
+              className="password-toggle"
+              onClick={() => setShowPassword(!showPassword)}
+            ></span>
+            
           </div>
         </div>
         <div className="message"  style={{ color: 'green',fontWeight: 'bold' }}>{message}</div>

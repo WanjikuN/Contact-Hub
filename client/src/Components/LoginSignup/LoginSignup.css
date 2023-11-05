@@ -97,3 +97,25 @@
 .req{
   color: red;
 }
+/* Add this to your existing CSS file or create a new one */
+
+.password-toggle {
+  border: 1px solid rgba(0, 0, 0, 0.397);
+  border-radius: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  top: -28px;
+  right: 100px;
+  font-size: 16px;
+  color: #333;
+  background-color: #ffffff11; /* Default background color */
+}
+
+
+.password-toggle::before {
+  content: '\1F441'; /* Unicode for eye icon */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+}
+
+  
