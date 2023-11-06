@@ -6,7 +6,7 @@ import os
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://contacthub-client.onrender.com"}}) 
+CORS(app, supports_credentials=True,resources={r"/*": {"origins": "https://contacthub-client.onrender.com"}}) 
 
 # app.secret_key = "qwertyyuiop"
 # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
