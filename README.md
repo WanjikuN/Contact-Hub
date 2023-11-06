@@ -41,27 +41,29 @@ SQLAlchemy for database management and relationships between users and organizat
 ## Installation
 
 1. Clone the repository.
-
+```
    $ git clone git@github.com:WanjikuN/Contact-Hub.git
+```
 
 2. Back-end Install dependancies.
-
+```
    $ pip install -r requirements.txt
-
+```
 3. Run the application
-
+```
    $ python app.py
-
-4. Front-end install dependancies
+```
+4. Front-end install dependancies `cd client`
+```   
    $ npm install
-
-5. Run applicaton
-
+```
+6. Run applicaton
+```
    $ npm start
-
+```
 ## Draft Layout
 
-! [Draft Layout](./images/draft-p4-proj-layout.png)
+![Draft Layout](./images/draft-p4-proj-layout.png)
 
 ## ERD Diagram
 ![Relatioonal Diagram](./images/erd.png)
