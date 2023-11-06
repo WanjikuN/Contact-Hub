@@ -12,7 +12,7 @@ export default function OrganizationDetails({ id, name, email, address, notes })
   const [femaleCount, setFemaleCount] = useState(0);
 
   useEffect(() => {
-    fetch(`/organizations/${params.id}`)
+    fetch(`https://contact-hub-jrd9.onrender.com/organizations/${params.id}`)
       .then(res => res.json())
       .then(data => {
         console.log(data);
