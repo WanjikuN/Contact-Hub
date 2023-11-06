@@ -29,7 +29,7 @@ export default function Contacts() {
       : contactsDisplay.filter((s) => s.user && s.user.gender.toLowerCase() === selectedGender.toLowerCase());
 
   useEffect(() => {
-    fetch('/contacts')
+    fetch('https://contact-hub-jrd9.onrender.com/contacts')
       .then((res) => res.json())
       .then((data) => setContacts(data))
       .catch((error) => {
