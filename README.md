@@ -1,6 +1,5 @@
 # Contact-Hub
 
-![Relatioonal Diagram](./images/erd.png)
 
 ## About
 
@@ -8,25 +7,25 @@ The Contact Hub is a centralized platform designed to facilitate efficient conta
 
 ### Key Features
 
-Sign-up & Login:
+- Sign-up & Login: 
 Users can sign-up and login to the Hub.
 
-User Edit Their Profile:
+- User Edit Their Profile:
 Once signed up users can edit their profile depending
 
-Search For Contacts:
+- Search For Contacts:
 Users can search for existing contact in the Hub .
 
-View Other Contacts & Organizations:
+- View Other Contacts & Organizations:
 Users can view other users who have signup and organizations
 
-User-Organization Connectivity:
+- User-Organization Connectivity:
 Seamlessly connect users with organizations
 
-Contacts Organisation and Management:
+- Contacts Organisation and Management:
 Offers a seamless way for big organizations to manage contact
 
-Comprehensive User Interface:
+- Comprehensive User Interface:
 User-friendly interface allowing easy navigation and access a list of contacts and organisations
 
 ## Technologies Used
@@ -63,3 +62,6 @@ SQLAlchemy for database management and relationships between users and organizat
 ## Draft Layout
 
 ! [Draft Layout](./images/draft-p4-proj-layout.png)
+
+## ERD Diagram
+![Relatioonal Diagram](./images/erd.png)
