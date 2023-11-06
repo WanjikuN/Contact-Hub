@@ -6,7 +6,7 @@ import os
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}}) 
 
 # app.secret_key = "qwertyyuiop"
 # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
