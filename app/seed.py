@@ -1,7 +1,7 @@
 # seed.py
 
 from app import app
-from models import db, User, Contact, Organization
+from app.models import db, User, Contact, Organization
 from faker import Faker
 
 

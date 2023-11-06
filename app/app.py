@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, session
-from models import db, User, Contact, Organization
+from app.models import db, User, Contact, Organization
 from flask_migrate import Migrate
 from flask_cors import CORS
 import os
