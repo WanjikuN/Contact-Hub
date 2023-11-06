@@ -29,7 +29,7 @@ function LoginSignup() {
   }, []);
   const fetchOrganizations = async () => {
     try {
-      const response = await fetch("/organizations");
+      const response = await fetch("https://contact-hub-jrd9.onrender.com/organizations");
       const data = await response.json();
       if (response.ok) {
         return data;
@@ -76,7 +76,7 @@ function LoginSignup() {
       }
 
 
-      const response = await fetch("/signup", {
+      const response = await fetch("https://contact-hub-jrd9.onrender.com/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -118,7 +118,7 @@ function LoginSignup() {
 
   const Login = async () => {
     try {
-      const response = await fetch("/login", {
+      const response = await fetch("https://contact-hub-jrd9.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
