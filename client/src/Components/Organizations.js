@@ -26,6 +26,9 @@ export default function Organizations(){
         <div id ="listy">
         
         {orgsDisplay.map(organization => {
+            if (!organization) {
+                return null; 
+              }
             return( <Organization key={organization.id} id={organization.id} 
                 name={organization.name} 
                 email={organization.email} 
