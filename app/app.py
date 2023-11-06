@@ -82,8 +82,8 @@ def logout():
 # creating new user
 @app.route("/user", methods=["POST"])
 def create_user():
-    if not is_logged_in():
-        return jsonify({"error": "You are not logged in."}), 401
+    # if not is_logged_in():
+    #     return jsonify({"error": "You are not logged in."}), 401
     
     data = request.json
     new_user = User(
@@ -104,8 +104,8 @@ def create_user():
 # Get all users
 @app.route("/users", methods=["GET"])
 def get_users():
-    if not is_logged_in():
-        return jsonify({"error": "You are not logged in."}), 401
+    # if not is_logged_in():
+    #     return jsonify({"error": "You are not logged in."}), 401
     
     users = User.query.all()
     serialized_users = [user.to_dict(rules=("-contact.user",)) for user in users]
@@ -114,8 +114,8 @@ def get_users():
 # Get a specific user
 @app.route('/users/<int:id>', methods=['GET'])
 def get_users_by_id(id):
-    if not is_logged_in():
-        return jsonify({"error": "You are not logged in."}), 401
+    # if not is_logged_in():
+    #     return jsonify({"error": "You are not logged in."}), 401
     
     user = User.query.get(id).to_dict()
     
@@ -124,8 +124,8 @@ def get_users_by_id(id):
 # Create a new organization
 @app.route("/organization", methods=["POST"])
 def create_organization():
-    if not is_logged_in():
-        return jsonify({"error": "You are not logged in."}), 401
+    # if not is_logged_in():
+    #     return jsonify({"error": "You are not logged in."}), 401
     
     data = request.json
     new_organization = Organization(
@@ -162,8 +162,8 @@ def get_organizations_by_id(id):
 # Create a new contact
 @app.route("/contact", methods=["POST"])
 def create_contact():
-    if not is_logged_in():
-        return jsonify({"error": "You are not logged in."}), 401
+    # if not is_logged_in():
+    #     return jsonify({"error": "You are not logged in."}), 401
     
     data = request.json
     new_contact = Contact(
@@ -180,8 +180,8 @@ def create_contact():
 # Get all contacts
 @app.route("/contacts", methods=["GET"])
 def get_contacts():
-    if not is_logged_in():
-        return jsonify({"error": "You are not logged in."}), 401
+    # if not is_logged_in():
+    #     return jsonify({"error": "You are not logged in."}), 401
     
     contacts = Contact.query.all()
     serialized_contacts = [
@@ -198,8 +198,8 @@ def get_contacts():
 # Get specific contact
 @app.route('/contacts/<int:id>', methods=['GET'])
 def get_contacts_by_id(id):
-    if not is_logged_in():
-        return jsonify({"error": "You are not logged in."}), 401
+    # if not is_logged_in():
+    #     return jsonify({"error": "You are not logged in."}), 401
     
     contact = Contact.query.get(id).to_dict()
     
@@ -208,8 +208,8 @@ def get_contacts_by_id(id):
 # Delete user
 @app.route("/user/<int:user_id>", methods=["DELETE"])
 def delete_user(user_id):
-    if not is_logged_in():
-        return jsonify({"error": "You are not logged in."}), 401
+    # if not is_logged_in():
+    #     return jsonify({"error": "You are not logged in."}), 401
     
     user = User.query.get(user_id)
     if user:
@@ -222,8 +222,8 @@ def delete_user(user_id):
 # Update a user by ID
 @app.route('/user/<int:user_id>', methods=['PATCH'])
 def update_user(user_id):
-    if not is_logged_in():
-        return jsonify({"error": "You are not logged in."}), 401
+    # if not is_logged_in():
+    #     return jsonify({"error": "You are not logged in."}), 401
     
     user = User.query.get(user_id)
     if not user:
@@ -251,8 +251,8 @@ def update_user(user_id):
 # Update a contact by ID
 @app.route('/contact/<int:contact_id>', methods=['PATCH'])
 def update_contact(contact_id):
-    if not is_logged_in():
-        return jsonify({"error": "You are not logged in."}), 401
+    # if not is_logged_in():
+    #     return jsonify({"error": "You are not logged in."}), 401
     
     contact = Contact.query.get(contact_id)
     if not contact:
@@ -278,8 +278,8 @@ def update_contact(contact_id):
 # Update the contact deletion route to delete the associated user
 @app.route('/contacts/<int:id>', methods=['DELETE'])
 def delete_contact(id):
-    if not is_logged_in():
-        return jsonify({"error": "You are not logged in."}), 401
+    # if not is_logged_in():
+    #     return jsonify({"error": "You are not logged in."}), 401
         
     contact = Contact.query.get(id)
     if contact:
