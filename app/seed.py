@@ -1,12 +1,9 @@
-from flask import Flask
-from models import db, User, Contact, Organization
+# seed.py
+
+from app import app
+from app.models import db, User, Contact, Organization
 from faker import Faker
 
-app = Flask(__name__)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///contacthub.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db.init_app(app)
 
 fake = Faker()
 
@@ -66,19 +63,7 @@ with app.app_context():
         # Commit the changes to the database
         db.session.commit()
 
-        # Create sample contacts
-        contacts = []
-        for _ in range(20):
-            contact = Contact(
-                profile_notes=fake.sentence(),
-                user_id=fake.random_element(elements=User.query.with_entities(User.id).all())[0],
-                organization_id=fake.random_element(elements=Organization.query.with_entities(Organization.id).all())[0]
-            )
-            contacts.append(contact)
-
-        db.session.add_all(contacts)
-        db.session.commit()
-
+        # Your existing code for creating contacts here
 
     if __name__ == "__main__":
         seed_data()

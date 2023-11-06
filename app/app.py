@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, session
-from models import db, User, Contact, Organization
+from app.models import db, User, Contact, Organization
 from flask_migrate import Migrate
 from flask_cors import CORS
 import os
@@ -8,10 +8,11 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-app.secret_key = "qwertyyuiop"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
-    app.instance_path, "contacthub.db"
-)
+# app.secret_key = "qwertyyuiop"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
+#     app.instance_path, "contacthub.db"
+# )
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 migrate = Migrate(app, db)
 
