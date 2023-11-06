@@ -14,7 +14,7 @@ export default function Organizations(){
         return org.name.toLowerCase().includes(oname.toLowerCase())
     })
     useEffect(()=>{
-        fetch('/organizations')
+        fetch('https://contact-hub-jrd9.onrender.com/organizations')
         .then(res => res.json())
         .then(data => setOrganization(data))
     },[])
