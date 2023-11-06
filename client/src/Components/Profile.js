@@ -22,7 +22,7 @@ export default function Profile() {
   });
   const params = useParams()
   useEffect(() => {
-    fetch(`/contacts/${params.id}`)
+    fetch(`https://contact-hub-jrd9.onrender.com/contacts/${params.id}`)
       .then((res) => res.json())
       .then((data) => {
         setContacts(data);
@@ -52,7 +52,7 @@ export default function Profile() {
 
   const handleSaveEdit = () => {
     // Perform the update request with the editedContact data
-    fetch(`/contact/${params.id}`, {
+    fetch(`https://contact-hub-jrd9.onrender.com/contact/${params.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ export default function Profile() {
     setEditedContact((prevData) => ({ ...prevData, [name]: value }));
   };
   const handleDelete = () => {
-    fetch(`/contacts/${params.id}`, {
+    fetch(`https://contact-hub-jrd9.onrender.com/contacts/${params.id}`, {
       method: 'DELETE',
     })
       .then((res) => {
