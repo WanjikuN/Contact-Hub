@@ -3,7 +3,7 @@ pipeline {
   
     environment {
         PIPENV_VENV_IN_PROJECT = '1'
-        gitRepoUrl = 'https://github.com/WanjikuN/Contact-Hub/tree/feat-hosting'
+        gitRepoUrl = 'https://github.com/WanjikuN/Contact-Hub'
         renderServiceName = 'https://contact-hub-jrd9.onrender.com'
         renderToken = credentials('render-token-id')
         
